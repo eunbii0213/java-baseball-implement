@@ -123,4 +123,4 @@
 
 ## 📝 License
 
-This project is [MIT](https://github.com/kth496/java-baseball-implement/blob/develop/LICENSE) licensed.
+This project is [MIT](https://github.com/kth496/java-baseball-implement/blob/develop/LICENSE) licensed,
