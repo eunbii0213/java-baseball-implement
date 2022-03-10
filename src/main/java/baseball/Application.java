@@ -23,7 +23,7 @@ public class Application {
         String userNumber = Console.readLine();
 
         try {
-            boolean checker = UserInputChecker(userNumber);
+            boolean checker = UserInputChecker(userNumber, 3);
         } catch (IllegalArgumentException e) {
             System.out.println(e.toString());
             System.exit(0);
@@ -43,15 +43,15 @@ public class Application {
     }
 
     //User의 입력을 검사하고 유효하지 않으면 Illegal Exception을 발생시킵니다.
-    public static boolean UserInputChecker(String userNumber) throws IllegalArgumentException {
+    public static boolean UserInputChecker(String userNumber, int length) throws IllegalArgumentException {
 
         char[] userNumberToCharArray = userNumber.toCharArray();
-        if (userNumberToCharArray.length > 3 || userNumberToCharArray.length < 3) {
+        if (userNumberToCharArray.length > length || userNumberToCharArray.length < length) {
             throw new IllegalArgumentException();
         }
 
         //아스키코드표 기준 0 = 48, 9 = 57. 이 범위안에 있지 않다면 유효한 값이 아니라고 판단합니다.
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < length; i++) {
             if (userNumberToCharArray[i] < 48 || userNumberToCharArray[i] > 57) {
                 throw new IllegalArgumentException();
             }
@@ -79,12 +79,11 @@ public class Application {
             ArrayList<Integer> userNumberList = UserGuessNumber();
 
             //strike와 ball을 계산합니다.
-            CalstrikeAndBall(userNumberList);
+            CalStrikeAndBall(userNumberList);
             //결과를 프린트합니다.
             printResult(ball, strike);
 
             if (strike == 3) {
-                System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
                 ReOrEnd();
             }
 
@@ -94,7 +93,8 @@ public class Application {
 
     }
 
-    public static void CalstrikeAndBall(ArrayList<Integer> userNumberList) {
+
+    public static void CalStrikeAndBall(ArrayList<Integer> userNumberList) {
         //검사작업을 시작합니다.
         for (int i = 0; i < 3; i++) {
             if (randomNumber.get(i).equals(userNumberList.get(i))) {
@@ -108,12 +108,21 @@ public class Application {
 
     public static void ReOrEnd() throws IllegalArgumentException {
 
+        System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
         System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-        int userInput = Integer.parseInt(Console.readLine());
+        String userInput = Console.readLine();
 
-        if (userInput == 1) {
+        try {
+            boolean checker = UserInputChecker(userInput, 1);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.toString());
+            System.exit(0);
+        }
+        int userInputToInt = Integer.parseInt(userInput);
+
+        if (userInputToInt == 1) {
             startGame();
-        } else {
+        } else if (userInputToInt == 2) {
             System.exit(0);
         }
 
