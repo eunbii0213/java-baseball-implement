@@ -25,7 +25,7 @@ public class Application {
         try {
             boolean checker = UserInputChecker(userNumber, 3);
         } catch (IllegalArgumentException e) {
-            System.out.println(e.toString());
+            //System.out.println(e.toString());
             System.exit(0);
         }
 
@@ -66,9 +66,9 @@ public class Application {
         visit = new boolean[10];
 
         getRandomNum(); //난수를 입력받습니다.
-        for (int i = 0; i < 3; i++) {
-            System.out.println(randomNumber.get(i));
-        }
+//        for (int i = 0; i < 3; i++) {
+//            System.out.println(randomNumber.get(i));
+//        }
 
         //게임 진행
         while (true) {
@@ -115,7 +115,7 @@ public class Application {
         try {
             boolean checker = UserInputChecker(userInput, 1);
         } catch (IllegalArgumentException e) {
-            System.out.println(e.toString());
+            //System.out.println(e.toString());
             System.exit(0);
         }
         int userInputToInt = Integer.parseInt(userInput);
