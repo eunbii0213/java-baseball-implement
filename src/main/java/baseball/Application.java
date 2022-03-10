@@ -77,8 +77,8 @@ class Computer {
         randomNumber = new ArrayList<Integer>(3);
     }
 
+    //검사작업을 시작합니다.
     public void CalStrikeAndBall(Player player) {
-        //검사작업을 시작합니다.
         for (int i = 0; i < 3; i++) {
 
             if (randomNumber.get(i).equals(player.getUserNumberList().get(i))) {
