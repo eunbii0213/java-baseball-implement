@@ -1,12 +1,7 @@
 package baseball;
 
-import camp.nextstep.edu.missionutils.Console;
-import camp.nextstep.edu.missionutils.Randoms;
-
-import java.util.ArrayList;
-
 public class Application {
-
+    private static final int THREESTRIKE = 3;
 
     public static void main(String[] args) {
         //TODO: 숫자 야구 게임 구현
@@ -20,27 +15,43 @@ public class Application {
         computer.getRandomNum();
 
         //게임 진행
+        Loop1:
         while (true) {
-
             Player player = new Player();
-
-            //Player의 입력값
-            player.UserGuessNumber();
-
-            //strike와 ball을 계산합니다.
-            computer.CalStrikeAndBall(player);
-            //결과를 프린트합니다.
-            computer.printResult(computer.getBall(), computer.getStrike());
-
-            //strike가 3개라면 종료하고 재시작 혹은 종료여부를 결정합니다.
-            if (computer.getStrike() == 3) {
-                computer.ReOrEnd(player);
-            }
-
-            //Player가 숫자를 맞추지 못했다면 ball과 strike를 초기화합니다.
+            Checker checker = new Checker();
+            boolean reOrEnd = false;
             computer.setBall(0);
             computer.setStrike(0);
+
+            //Player의 입력값
+
+            if (player.userGuessNumber(checker)) {
+                break;
+
+            } else if (computer.calculateStrikeAndBall(player)) {
+                //strike와 ball을 계산합니다.
+               break;
+            } else {
+                //결과를 프린트합니다.
+                computer.printResult(computer.getBall(), computer.getStrike());
+            }
+
+            //strike가 3개라면 종료하고 재시작 혹은 종료여부를 결정합니다.
+            if (computer.getStrike() == THREESTRIKE) {
+                computer.showThreeStrike();
+                reOrEnd = computer.reOrEnd(player, checker);
+
+            }
+
+            if(reOrEnd){
+                break;
+
+            }
+
         }
+
+        System.exit(0);
+
 
     }
 
