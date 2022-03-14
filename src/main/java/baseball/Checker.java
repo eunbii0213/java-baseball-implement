@@ -26,7 +26,7 @@ public class Checker {
         }
 
         for (int index = 0; index < length; index++) {
-            if (userNumberToCharArray[i] - '0' == 0) {
+            if (userNumberToCharArray[index] - '0' == 0) {
                 throw new IllegalArgumentException("1~9 사이의 숫자만 입력가능합니다.");
             }
         }
