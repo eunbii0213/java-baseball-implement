@@ -14,11 +14,12 @@ public class Player {
 
     //User가 숫자를 입력합니다.
     public boolean userGuessNumber(Checker checker) throws IllegalArgumentException {
-
         System.out.print("숫자를 입력해주세요 : ");
         String userNumber = Console.readLine();
 
         try {
+            ifListIsNotEmpty(checker);
+
             checker.userInputChecker(userNumber, 3);
 
             int userNumberToInt = Integer.parseInt(userNumber);
@@ -29,12 +30,28 @@ public class Player {
             userNumberList.add((userNumberToInt % 100) % 10);
 
         } catch (IllegalArgumentException e) {
+
             return true;
         }
 
         return false;
 
     }
+
+    public void ifListIsNotEmpty(Checker checker) {
+        //System.out.println("ggggggggggggggg");
+
+        boolean flag = false;
+        while (!userNumberList.isEmpty()) {
+            userNumberList.remove(0);
+            flag = true;
+        }
+        if (flag) {
+            //System.out.println("hhhhhhhhhhhhhhh");
+            checker.initVisitArr();
+        }
+    }
+
 
     public ArrayList<Integer> getUserNumberList() {
         return userNumberList;
