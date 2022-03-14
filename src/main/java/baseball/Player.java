@@ -19,7 +19,6 @@ public class Player {
 
         try {
             ifListIsNotEmpty(checker);
-
             checker.userInputChecker(userNumber, 3);
 
             int userNumberToInt = Integer.parseInt(userNumber);
@@ -30,28 +29,22 @@ public class Player {
             userNumberList.add((userNumberToInt % 100) % 10);
 
         } catch (IllegalArgumentException e) {
-
+            e.printStackTrace();
             return true;
         }
-
         return false;
-
     }
 
     public void ifListIsNotEmpty(Checker checker) {
-        //System.out.println("ggggggggggggggg");
-
         boolean flag = false;
         while (!userNumberList.isEmpty()) {
             userNumberList.remove(0);
             flag = true;
         }
         if (flag) {
-            //System.out.println("hhhhhhhhhhhhhhh");
-            checker.initVisitArr();
+            checker.initialVisitArr();
         }
     }
-
 
     public ArrayList<Integer> getUserNumberList() {
         return userNumberList;

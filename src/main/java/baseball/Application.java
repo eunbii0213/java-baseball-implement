@@ -19,26 +19,29 @@ public class Application {
         boolean isEnd = false;
         boolean re = true; // true일 때 게임종료
         do {
-            initial(player, computer, checker);
+            initial(computer, checker);
 
             if (!re) {
                 computer.getRandomNum();
+                re = true;
             }
 
             //Player의 입력값
             isEnd = inOrOut(computer, player, checker);
+
             //strike가 3개라면 종료하고 재시작 혹은 종료여부를 결정합니다.
             if (computer.getStrike() == THREE_STRIKE) {
-                isEnd = userGetThreeStrike(computer, player, checker);
+                isEnd = userGetThreeStrike(computer, checker);
                 re = isEnd;
             }
         } while (!isEnd);
 
     }
 
-    public static boolean userGetThreeStrike(Computer computer, Player player, Checker checker) {
+    public static boolean userGetThreeStrike(Computer computer, Checker checker) {
         computer.showThreeStrike();
-        boolean isEnd = computer.reOrEnd(computer, player, checker);
+        //true면 종료함
+        boolean isEnd = computer.reOrEnd(checker);
 
         return isEnd;
     }
@@ -58,6 +61,7 @@ public class Application {
     //반복문 탈출
     public static boolean inOrOut(Computer computer, Player player, Checker checker) {
 
+
         if (player.userGuessNumber(checker)) {
             return true;
         } else {
@@ -65,11 +69,12 @@ public class Application {
             computer.calculateStrikeAndBall(player);
             //결과를 프린트합니다.
             computer.printResult(computer.getBall(), computer.getStrike());
+
             return false;
         }
     }
 
-    public static void initial(Player player, Computer computer, Checker checker) {
+    public static void initial(Computer computer, Checker checker) {
         computer.setBall(0);
         computer.setStrike(0);
         //checker 갱신

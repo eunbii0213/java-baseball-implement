@@ -26,10 +26,6 @@ public class Computer {
     public void calculateStrikeAndBall(Player player) {
 
         //Player가 잘못된 입력을 하여 list가 비어있다면 strike와 ball을 검사하지않음.
-//        if (player.userNumberList.isEmpty()) {
-//            return true;
-//        }
-
         int index = 0;
         for (Integer i : player.userNumberList) {
             if (randomNumber.get(index).equals(i)) {
@@ -39,9 +35,6 @@ public class Computer {
             }
             index++;
         }
-
-        //       return false;
-
     }
 
     public void showThreeStrike() {
@@ -50,19 +43,19 @@ public class Computer {
     }
 
 
-    public boolean reOrEnd(Computer computer, Player player, Checker checker) throws IllegalArgumentException {
+    public boolean reOrEnd(Checker checker) throws IllegalArgumentException {
 
         int userInputToInt;
 
         try {
             userInputToInt = checker.reOrEndUserInput();
             if (userInputToInt == RE_PLAY) {
-                //Application.startGame(computer, player, checker);
                 return false;
             } else if (userInputToInt == END_GAME) {
                 return true;
             }
         } catch (IllegalArgumentException e) {
+            e.printStackTrace();
             return true;
         }
         return false;
@@ -91,23 +84,24 @@ public class Computer {
 
         while (!randomNumber.isEmpty()) {
             randomNumber.remove(0);
+            initialVisitArr();
         }
 
         for (int i = 0; i < 3; i++) {
-
             int number = Randoms.pickNumberInRange(1, 9);
             if (!visit[number]) {
                 visit[number] = true;
                 randomNumber.add(number);
-                System.out.println(number);
             } else {
                 i--;
             }
         }
     }
 
-    public void initialRandomNumber() {
-        randomNumber.clear();
+    public void initialVisitArr() {
+        for (int i = 0; i < visit.length; i++) {
+            visit[i] = false;
+        }
     }
 
     public int getStrike() {

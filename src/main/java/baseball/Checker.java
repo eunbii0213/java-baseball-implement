@@ -4,7 +4,7 @@ import camp.nextstep.edu.missionutils.Console;
 
 public class Checker {
 
-    private boolean[] visit;
+    private boolean[] visit; //유저입력에서의 중복을 체크하는 배열입니다.
 
     Checker() {
         visit = new boolean[10]; // 0,1,2,3,4,5,6,7,8,9
@@ -14,26 +14,30 @@ public class Checker {
     public void userInputChecker(String userNumber, int length) throws IllegalArgumentException {
 
         char[] userNumberToCharArray = userNumber.toCharArray();
-        if (userNumberToCharArray.length != length) {
-            System.out.println("올바른 길이의 숫자를 입력해주세요.");
-            throw new IllegalArgumentException("올바른 길이의 숫자를 입력해주세요.");
-        }
-
-
-        //reOrEnd 입력 받을 때는 숫자중복을 검사하지않습니다.
-        if (length != 1) {
-            if (isUserInputSameNumber(userNumberToCharArray)) {
-                System.out.println("중복되는 숫자는 입력할 수 없습니다.");
-                throw new IllegalArgumentException("중복되는 숫자는 입력할 수 없습니다.");
-            }
-        }
 
         try {
             Integer.parseInt(userNumber);
         } catch (NumberFormatException e) {
-            System.out.println("숫자만 입력해주세요.");
             throw new IllegalArgumentException("숫자만 입력해주세요.");
         }
+
+        if (userNumberToCharArray.length != length) {
+            throw new IllegalArgumentException("올바른 길이의 숫자를 입력해주세요.");
+        }
+
+        for (int i = 0; i < length; i++) {
+            if (userNumberToCharArray[i] - '0' == 0) {
+                throw new IllegalArgumentException("1~9 사이의 숫자만 입력가능합니다.");
+            }
+        }
+
+        //reOrEnd 입력 받을 때는 숫자중복을 검사하지않습니다.
+        if (length != 1) {
+            if (isUserInputSameNumber(userNumberToCharArray)) {
+                throw new IllegalArgumentException("중복되는 숫자는 입력할 수 없습니다.");
+            }
+        }
+
     }
 
     //reOrEnd 입력을 받을 때 체크합니다.
@@ -43,19 +47,20 @@ public class Checker {
 
         try {
             userInputChecker(userInput, 1);
+
             int userInputToInt = Integer.parseInt(userInput);
             return userInputToInt;
 
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("1혹은 2를 입력해주세요");
         }
-
     }
 
     //유저가 111, 222같은 중복되는 숫자 입력을 방지합니다.
     public boolean isUserInputSameNumber(char[] userNumberToCharArray) {
 
         int index = 0;
+        initialVisitArr();
 
         for (int visitCheckIndex = 0; visitCheckIndex < visit.length; visitCheckIndex++) {
             int target = userNumberToCharArray[index] - '0';
@@ -69,14 +74,14 @@ public class Checker {
             }
 
             if (index >= userNumberToCharArray.length) {
+                initialVisitArr();
                 break;
             }
         }
-
         return false;
     }
 
-    public void initVisitArr() {
+    public void initialVisitArr() {
         for (int index = 0; index < 10; index++) {
             visit[index] = false;
         }
