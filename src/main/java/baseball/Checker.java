@@ -25,7 +25,7 @@ public class Checker {
             throw new IllegalArgumentException("올바른 길이의 숫자를 입력해주세요.");
         }
 
-        for (int i = 0; i < length; i++) {
+        for (int index = 0; index < length; index++) {
             if (userNumberToCharArray[i] - '0' == 0) {
                 throw new IllegalArgumentException("1~9 사이의 숫자만 입력가능합니다.");
             }

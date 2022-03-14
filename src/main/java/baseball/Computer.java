@@ -82,20 +82,20 @@ public class Computer {
             initialVisitArr();
         }
 
-        for (int i = 0; i < 3; i++) {
+        for (int index = 0; index < 3; index++) {
             int number = Randoms.pickNumberInRange(1, 9);
             if (!visit[number]) {
                 visit[number] = true;
                 randomNumber.add(number);
             } else {
-                i--;
+                index--;
             }
         }
     }
 
     public void initialVisitArr() {
-        for (int i = 0; i < visit.length; i++) {
-            visit[i] = false;
+        for (int index= 0; index < visit.length; index++) {
+            visit[index] = false;
         }
     }
 
