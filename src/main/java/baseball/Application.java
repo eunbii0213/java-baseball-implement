@@ -5,7 +5,6 @@ public class Application {
 
     public static void main(String[] args) {
         //TODO: 숫자 야구 게임 구현
-
         Computer computer = makeComputerEntity();
         Player player = makePlayerEntity();
         Checker checker = new Checker();
@@ -61,7 +60,6 @@ public class Application {
     //반복문 탈출
     public static boolean inOrOut(Computer computer, Player player, Checker checker) {
 
-
         if (player.userGuessNumber(checker)) {
             return true;
         } else {
@@ -80,6 +78,5 @@ public class Application {
         //checker 갱신
         checker = new Checker();
     }
-
 
 }

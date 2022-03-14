@@ -11,7 +11,7 @@ public class Checker {
     }
 
     //User의 입력을 검사하고 유효하지 않으면 Illegal Exception을 발생시킵니다.
-    public void userInputChecker(String userNumber, int length) throws IllegalArgumentException {
+    public void userInputChecker(String userNumber, int length) {
 
         char[] userNumberToCharArray = userNumber.toCharArray();
 
@@ -37,11 +37,10 @@ public class Checker {
                 throw new IllegalArgumentException("중복되는 숫자는 입력할 수 없습니다.");
             }
         }
-
     }
 
     //reOrEnd 입력을 받을 때 체크합니다.
-    public int reOrEndUserInput() throws IllegalArgumentException {
+    public int reOrEndUserInput() {
 
         String userInput = Console.readLine();
 

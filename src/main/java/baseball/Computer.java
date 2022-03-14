@@ -43,19 +43,14 @@ public class Computer {
     }
 
 
-    public boolean reOrEnd(Checker checker) throws IllegalArgumentException {
+    public boolean reOrEnd(Checker checker) {
 
         int userInputToInt;
 
-        try {
-            userInputToInt = checker.reOrEndUserInput();
-            if (userInputToInt == RE_PLAY) {
-                return false;
-            } else if (userInputToInt == END_GAME) {
-                return true;
-            }
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
+        userInputToInt = checker.reOrEndUserInput();
+        if (userInputToInt == RE_PLAY) {
+            return false;
+        } else if (userInputToInt == END_GAME) {
             return true;
         }
         return false;
