@@ -14,6 +14,7 @@ public class Computer {
     private static final String RE_OR_ENDS_MESSAGE = "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.";
     private static final int RE_PLAY = 1;
     private static final int END_GAME = 2;
+    private static final int THREE_STRIKE = 3;
 
     public Computer() {
         strike = 0;
@@ -24,8 +25,6 @@ public class Computer {
 
     //검사작업을 시작합니다.
     public void calculateStrikeAndBall(Player player) {
-
-        //Player가 잘못된 입력을 하여 list가 비어있다면 strike와 ball을 검사하지않음.
         int index = 0;
         for (Integer i : player.userNumberList) {
             if (randomNumber.get(index).equals(i)) {
@@ -42,9 +41,7 @@ public class Computer {
         System.out.println(RE_OR_ENDS_MESSAGE);
     }
 
-
     public boolean reOrEnd(Checker checker) {
-
         int userInputToInt;
 
         userInputToInt = checker.reOrEndUserInput();
@@ -56,8 +53,7 @@ public class Computer {
         return false;
     }
 
-    public void printResult(int ball, int strike) {
-
+    public void printResult() {
         String str = "";
 
         if (ball != 0) {
@@ -71,12 +67,9 @@ public class Computer {
         }
 
         System.out.println(str);
-
     }
 
-    //컴퓨터가 난수입력받음(숫자가 중복되지 않기위해 visit여부를 체크하며 넣는다)
     public void getRandomNum() {
-
         while (!randomNumber.isEmpty()) {
             randomNumber.remove(0);
             initialVisitArr();
@@ -94,24 +87,18 @@ public class Computer {
     }
 
     public void initialVisitArr() {
-        for (int index= 0; index < visit.length; index++) {
+        for (int index = 0; index < visit.length; index++) {
             visit[index] = false;
         }
     }
 
-    public int getStrike() {
-        return strike;
+    public void resetStatus() {
+        this.ball = 0;
+        this.strike = 0;
     }
 
-    public int getBall() {
-        return ball;
+    public boolean isThreeStrike() {
+        return (this.strike == THREE_STRIKE);
     }
 
-    public void setStrike(int strike) {
-        this.strike = strike;
-    }
-
-    public void setBall(int ball) {
-        this.ball = ball;
-    }
 }

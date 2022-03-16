@@ -7,25 +7,27 @@ import java.util.ArrayList;
 public class Player {
 
     ArrayList<Integer> userNumberList;
+    public static final int ONE_HUNDRED = 100;
+    public static final int TEN = 10;
+    public static final int ZERO = 0;
+    public static final String USER_INPUT_GUIDE_MESSAGE = "숫자를 입력해주세요 : ";
 
     public Player() {
         userNumberList = new ArrayList<Integer>(3);
     }
 
-    //User가 숫자를 입력합니다.
-    public boolean userGuessNumber(Checker checker){
-        System.out.print("숫자를 입력해주세요 : ");
+    public boolean userGuessNumber(Checker checker) {
+        System.out.print(USER_INPUT_GUIDE_MESSAGE);
         String userNumber = Console.readLine();
 
-            ifListIsNotEmpty(checker);
-            checker.userInputChecker(userNumber, 3);
+        ifListIsNotEmpty(checker);
+        checker.userInputChecker(userNumber, 3);
 
-            int userNumberToInt = Integer.parseInt(userNumber);
+        int userNumberToInt = Integer.parseInt(userNumber);
 
-            //입력받은 수를 백의자리, 십의자리, 일의자리로 나누어 저장합니다.
-            userNumberList.add(userNumberToInt / 100);
-            userNumberList.add((userNumberToInt % 100) / 10);
-            userNumberList.add((userNumberToInt % 100) % 10);
+        userNumberList.add(userNumberToInt / ONE_HUNDRED);
+        userNumberList.add((userNumberToInt % ONE_HUNDRED) / TEN);
+        userNumberList.add((userNumberToInt % ONE_HUNDRED) % TEN);
 
         return false;
     }
@@ -33,7 +35,7 @@ public class Player {
     public void ifListIsNotEmpty(Checker checker) {
         boolean flag = false;
         while (!userNumberList.isEmpty()) {
-            userNumberList.remove(0);
+            userNumberList.remove(ZERO);
             flag = true;
         }
         if (flag) {
@@ -44,5 +46,4 @@ public class Player {
     public ArrayList<Integer> getUserNumberList() {
         return userNumberList;
     }
-
 }
