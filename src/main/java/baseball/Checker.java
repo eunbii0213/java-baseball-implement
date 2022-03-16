@@ -2,20 +2,17 @@ package baseball;
 
 import camp.nextstep.edu.missionutils.Console;
 
-import java.util.ArrayList;
-
 public class Checker {
-    private ArrayList<Boolean> visit;
-    public static final int ZERO = 0;
-    public static final int ONE = 1;
-    public static final int TEN = 10;
-    public static final char CHAR_TO_INT ='0';
+
+    private boolean[] visit; //유저입력에서의 중복을 체크하는 배열입니다.
 
     Checker() {
-        visit = new ArrayList<>(TEN);
+        visit = new boolean[10]; // 0,1,2,3,4,5,6,7,8,9
     }
 
+    //User의 입력을 검사하고 유효하지 않으면 Illegal Exception을 발생시킵니다.
     public void userInputChecker(String userNumber, int length) {
+
         char[] userNumberToCharArray = userNumber.toCharArray();
 
         try {
@@ -28,43 +25,50 @@ public class Checker {
             throw new IllegalArgumentException("올바른 길이의 숫자를 입력해주세요.");
         }
 
-        for (int index = ZERO; index < length; index++) {
-            if (userNumberToCharArray[index] - CHAR_TO_INT == ZERO) {
+        for (int index = 0; index < length; index++) {
+            if (userNumberToCharArray[index] - '0' == 0) {
                 throw new IllegalArgumentException("1~9 사이의 숫자만 입력가능합니다.");
             }
         }
 
-        if (length != ONE) {
+        //reOrEnd 입력 받을 때는 숫자중복을 검사하지않습니다.
+        if (length != 1) {
             if (isUserInputSameNumber(userNumberToCharArray)) {
                 throw new IllegalArgumentException("중복되는 숫자는 입력할 수 없습니다.");
             }
         }
     }
 
+    //reOrEnd 입력을 받을 때 체크합니다.
     public int reOrEndUserInput() {
+
         String userInput = Console.readLine();
 
         try {
             userInputChecker(userInput, 1);
-            return Integer.parseInt(userInput);
+
+            int userInputToInt = Integer.parseInt(userInput);
+            return userInputToInt;
 
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("1혹은 2를 입력해주세요");
         }
     }
 
+    //유저가 111, 222같은 중복되는 숫자 입력을 방지합니다.
     public boolean isUserInputSameNumber(char[] userNumberToCharArray) {
-        int index = ZERO;
+
+        int index = 0;
         initialVisitArr();
 
-        for (int visitCheckIndex = ZERO; visitCheckIndex < visit.size(); visitCheckIndex++) {
-            int target = userNumberToCharArray[index] - CHAR_TO_INT;
+        for (int visitCheckIndex = 0; visitCheckIndex < visit.length; visitCheckIndex++) {
+            int target = userNumberToCharArray[index] - '0';
 
-            if (!visit.get(visitCheckIndex) && target == visitCheckIndex) {
-                visit.set(visitCheckIndex, true);
+            if (!visit[visitCheckIndex] && target == visitCheckIndex) {
+                visit[visitCheckIndex] = true;
                 index++;
-                visitCheckIndex = -ONE;
-            } else if (visit.get(visitCheckIndex) && target == visitCheckIndex) {
+                visitCheckIndex = -1;
+            } else if (visit[visitCheckIndex] && target == visitCheckIndex) {
                 return true;
             }
 
@@ -77,10 +81,8 @@ public class Checker {
     }
 
     public void initialVisitArr() {
-        int index = ZERO;
-        for (boolean isTrue : visit) {
-            visit.set(index, false);
-            index++;
+        for (int index = 0; index < 10; index++) {
+            visit[index] = false;
         }
     }
 }
